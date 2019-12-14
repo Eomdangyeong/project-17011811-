@@ -1,10 +1,10 @@
 # Final Term Project
 ## Bag of Words
-1. 이미지를 sift하여 feature를 뽑는다
-2. kmeans-clustering을 통해서 center를 찾는다. 이를 codeword라고 한다
-3. codeword들로 구성된 codebook을 만든다
-4. 이미지 하나당 codeword로 이루어진 히스토그램을 그린다
-5. svm분류기로 학습을 한다
+> 1. 이미지를 sift하여 feature를 뽑는다  
+  2. kmeans-clustering을 통해서 center를 찾는다. 이를 codeword라고 한다  
+  3. codeword들로 구성된 codebook을 만든다  
+  4. 이미지 하나당 codeword로 이루어진 히스토그램을 그린다  
+  5. svm분류기로 학습을 한다  
 
 ### Spatial Pyramid Matching(SPM)
 >  spm은 이미지를 level별로 분할하여 각 분할 영역마다 히스토그램을 구하여 비교하는 방법이다  
