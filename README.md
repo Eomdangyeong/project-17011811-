@@ -11,6 +11,8 @@
     #keypoints에서 descriptor를 계산한 후 keypoint와 descriptor를 리턴
         
 ### codebook
+>  codebooksize는 400이 가장 성능이 좋았지만 노트북이 감당을 하지 못한다
+
     ! yes | pip3 install kmc2
     import kmc2
     from sklearn.cluster import MiniBatchKMeans
@@ -19,3 +21,22 @@
     seeding = kmc2.kmc2(np.array(train_des).reshape(-1,128), codebooksize) 
     kmeans = MiniBatchKMeans(codebooksize, init=seeding).fit(np.array(train_des).reshape(-1,128))
     codebook = kmeans.cluster_centers_
+
+### encoder
+> spm이 아니라 bovw를 사용할 경우 encoding해서 svm에 넣어줘야한다
+
+    def input_vector_encoder(feature, codebook):
+    code, _ = vq.vq(feature, codebook)
+    word_hist, bin_edges = np.histogram(code, bins=range(codebook.shape[0] + 1), normed=True)
+    return word_hist
+    #feature에는 sift한 이미지들을 하나씩 넣어준다
+    
+    
+### svm
+
+    C_range = 10.0 ** np.arange(-3, 3)
+    gamma_range = 10.0 ** np.arange(-3, 3)
+    param_grid = dict(gamma=gamma_range.tolist(), C=C_range.tolist())
+    clf = GridSearchCV(svm.SVC(), param_grid, cv=5, n_jobs=-2)
+    clf.fit(d_train, train_labels)
+    y_fit=clf.predict(d_test)
