@@ -43,7 +43,7 @@
     codebook = kmeans.cluster_centers_
 
 ### encoder
-> spm이 아니라 bovw를 사용할 경우 encoding해서 svm에 넣어줘야한다
+>  encoding해서 svm에 넣어줘야한다
 
     def input_vector_encoder(feature, codebook):
     code, _ = vq.vq(feature, codebook)
